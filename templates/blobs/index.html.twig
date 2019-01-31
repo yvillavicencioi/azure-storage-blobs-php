@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Azure Blob storage{% endblock %}
+
+{% block body %}
+
+<div class="row">
+    <div class="col-lg-12 jumbotron">
+        <h1>Azure Blob storage</h1>
+        <p class="lead">It's Microsoft's object storage solution for the cloud. Blob storage is optimized for storing massive amounts of unstructured data. Unstructured data is data that does not adhere to a particular data model or definition, such as text or binary data.</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col">        
+        <form action="/upload/image" enctype="multipart/form-data" method="post" class="form-inline">
+           <div class="input-group mb-3">                
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="newFile" name="newFile" aria-describedby="inputGroupFileAddon01">
+                    <label class="custom-file-label" for="newFile">Choose file to upload</label>
+                </div>
+                <div class="input-group-append">                    
+                    <button type="submit" class="btn btn-primary">Upload</button>
+                </div>
+            </div>            
+        </form>        
+    </div>
+    <div>
+    <div class="col">
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Containers
+                </button>
+                <div class="dropdown-menu " aria-labelledby="dropdownMenuButton" >                
+                    {% for container in containers %}
+                    <a class="dropdown-item" href="#">{{container.name}}</a>
+                    {% endfor %}
+                </div>
+            </div>        
+        </div>
+    </div>
+</div>
+<div class="row">
+        {% for blob in blobs %}
+            <div class="col-sm">
+                <div class="card" style="width: 15rem; margin-bottom:10px;">
+                    <img src="{{ blob.url }}" class="card-img-top" alt="{{blob.name}}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{blob.name}}</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a href="/delete/{{blob.name}}" class="btn btn-primary">Delete</a>
+                    </div>
+                </div>
+            </div>    
+        {% endfor %}   
+</div>
+{% endblock %}
